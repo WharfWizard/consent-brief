@@ -34,4 +34,4 @@ This tool supports informed decision-making. It does not provide medical advice.
 
 ---
 
-*Academy of Life Planning · Total Wealth Planning™ · © 2025*
+*Academy of Life Planning · Total Wealth Planning™ · © 2026*
