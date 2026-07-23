@@ -773,20 +773,20 @@ try {
   raw = raw.replace(/[\u0000-\u001F\u007F]/g, ' ');
 
   try {
-  briefData = JSON.parse(raw);
+  brief = JSON.parse(raw);
 } catch(parseErr) {
   // Strip everything before first { and after last }
   const start = raw.indexOf('{');
   const end = raw.lastIndexOf('}');
-  briefData = JSON.parse(raw.slice(start, end + 1));
+  brief = JSON.parse(raw.slice(start, end + 1));
 }
 
-  if (!briefData || !briefData.title) throw new Error('Unexpected response: ' + raw.slice(0, 200));
+  if (!brief || !brief.title) throw new Error('Unexpected response: ' + raw.slice(0, 200));
 
   scores = {}; weights = {};
-  (briefData.criteria || []).forEach((_, ci) => {
+  (brief.criteria || []).forEach((_, ci) => {
     weights[ci] = 5; scores[ci] = {};
-    (briefData.options || []).forEach((_, oi) => { scores[ci][oi] = 5; });
+    (brief.options || []).forEach((_, oi) => { scores[ci][oi] = 5; });
   });
 
   populateResults();
