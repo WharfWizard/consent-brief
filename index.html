@@ -772,8 +772,7 @@ try {
   raw = raw.replace(/```json|```/g, '').trim();
   raw = raw.replace(/[\u0000-\u001F\u007F]/g, ' ');
 
-  const match = raw.match(/\{[\s\S]*\}/);
-  briefData = match ? JSON.parse(match[0]) : JSON.parse(raw);
+  briefData = JSON.parse(raw);
 
   if (!briefData || !briefData.title) throw new Error('Unexpected response: ' + raw.slice(0, 200));
 
