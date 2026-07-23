@@ -788,7 +788,7 @@ try {
     document.getElementById('view1').classList.remove('hidden');
     document.getElementById('view2').classList.add('hidden');
     setStep(1);
-    errMsg.textContent = 'Something went wrong. Please check your text is pasted correctly and try again. (' + e.message + ')';
+   errMsg.textContent = 'Something went wrong: ' + e.message + ' | raw: ' + (typeof raw !== 'undefined' ? raw.slice(0, 200) : 'no raw');
     errMsg.classList.remove('hidden');
   }
 }
