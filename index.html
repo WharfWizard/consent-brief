@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informed Consent Decision Brief · Academy of Life Planning</title>
+<meta name="description" content="Turn a 30-page patient information sheet into a plain-English decision brief.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal-50:#E1F5EE;--teal-100:#9FE1CB;--teal-200:#5DCAA5;--teal-400:#1D9E75;--teal-600:#0F6E56;
+  --amber-50:#FAEEDA;--amber-100:#FAC775;--amber-600:#854F0B;
+  --red-50:#FCEBEB;--red-100:#F7C1C1;--red-400:#E24B4A;--red-600:#A32D2D;
+  --blue-50:#E6F1FB;--blue-400:#378ADD;--blue-600:#185FA5;
+  --gray-50:#F8F7F4;--gray-100:#EDECE8;--gray-200:#D3D1C7;--gray-400:#888780;--gray-600:#5F5E5A;
+  --white:#FFFFFF;--text:#18181A;--text-mid:#3A3A3C;--text-soft:#68686E;
+  --border:rgba(0,0,0,0.09);--border-md:rgba(0,0,0,0.13);
+  --shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.05);
+  --radius:10px;--radius-lg:14px;--radius-xl:18px
+}
+html{font-size:16px;scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--gray-50);color:var(--text);line-height:1.7;min-height:100vh}
+header{background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 1.5rem;position:sticky;top:0;z-index:200}
+.header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:34px;height:34px;background:var(--teal-400);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:17px;height:17px;fill:white}
+.logo-name{font-size:14px;font-weight:600;color:var(--text);letter-spacing:-0.01em;display:block}
+.logo-tagline{font-size:11px;color:var(--text-soft);display:block}
+.header-tag{font-size:11px;font-weight:500;padding:4px 10px;background:var(--teal-50);color:var(--teal-600);border-radius:20px;border:1px solid var(--teal-100);white-space:nowrap}
+main{max-width:900px;margin:0 auto;padding:2rem 1.5rem 5rem}
+.hero{text-align:center;padding:2.5rem 1rem 2rem;max-width:640px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--teal-600);margin-bottom:16px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:20px;height:1px;background:var(--teal-200)}
+.hero h1{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(28px,5vw,42px);font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:var(--text);margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--teal-600)}
+.hero p{font-size:16px;color:var(--text-soft);line-height:1.75}
+.steps-wrap{display:flex;align-items:flex-start;justify-content:center;gap:0;margin:0 auto 2rem;max-width:480px}
+.step-item{display:flex;flex-direction:column;align-items:center;gap:7px;flex:0 0 auto}
+.step-circle{width:34px;height:34px;border-radius:50%;border:2px solid var(--gray-200);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--text-soft);background:var(--white);transition:all 0.25s}
+.step-item.active .step-circle{border-color:var(--teal-400);color:var(--teal-600);background:var(--teal-50)}
+.step-item.done .step-circle{border-color:var(--teal-400);background:var(--teal-400);color:white}
+.step-label{font-size:11px;color:var(--text-soft);white-space:nowrap}
+.step-item.active .step-label,.step-item.done .step-label{color:var(--teal-600)}
+.step-connector{width:56px;height:2px;background:var(--gray-200);margin-top:16px;margin-bottom:18px;flex-shrink:0;transition:background 0.3s}
+.step-connector.done{background:var(--teal-400)}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);box-shadow:var(--shadow);overflow:hidden}
+.card-head{padding:1.25rem 1.75rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.card-head-left{flex:1;min-width:0}
+.card-title{font-size:16px;font-weight:600;color:var(--text);line-height:1.3}
+.card-subtitle{font-size:13px;color:var(--text-soft);margin-top:3px}
+.card-body{padding:1.75rem}
+textarea{width:100%;min-height:210px;resize:vertical;padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;color:var(--text);background:var(--gray-50);border:1px solid var(--border-md);border-radius:var(--radius);transition:border-color 0.15s,box-shadow 0.15s}
+textarea:focus{outline:none;border-color:var(--teal-400);box-shadow:0 0 0 3px rgba(29,158,117,0.1);background:var(--white)}
+textarea::placeholder{color:var(--gray-400)}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.15s;border:none;text-decoration:none;white-space:nowrap;line-height:1}
+.btn-primary{background:var(--teal-400);color:white}
+.btn-primary:hover:not(:disabled){background:var(--teal-600);transform:translateY(-1px);box-shadow:0 4px 14px rgba(29,158,117,0.3)}
+.btn-primary:disabled{background:var(--gray-200);color:var(--gray-400);cursor:not-allowed}
+.btn-ghost{background:transparent;color:var(--text-soft);border:1px solid var(--border-md)}
+.btn-ghost:hover{background:var(--gray-50);color:var(--text)}
+.btn-sm{padding:7px 14px;font-size:13px}
+.loading-view{display:flex;flex-direction:column;align-items:center;padding:4rem 2rem;gap:18px;text-align:center}
+.spinner-wrap{position:relative;width:48px;height:48px}
+.spinner-track{width:48px;height:48px;border-radius:50%;border:3px solid var(--gray-100)}
+.spinner-fill{position:absolute;inset:0;border-radius:50%;border:3px solid transparent;border-top-color:var(--teal-400);animation:spin 0.7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-label{font-size:15px;font-weight:500;color:var(--text)}
+.loading-sub{font-size:13px;color:var(--text-soft);max-width:300px;line-height:1.6}
+.tab-nav{display:flex;padding:0 1.75rem;border-bottom:1px solid var(--border);gap:2px;overflow-x:auto}
+.tab-btn{display:flex;align-items:center;gap:7px;padding:13px 14px 12px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text-soft);cursor:pointer;background:transparent;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color 0.15s,border-color 0.15s;white-space:nowrap}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--teal-600);border-bottom-color:var(--teal-400)}
+.tab-pane{padding:1.75rem;animation:fadeIn 0.2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.section-eyebrow{font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--teal-400);margin-bottom:9px}
+.section-block{margin-bottom:1.75rem}
+.section-block:last-child{margin-bottom:0}
+.section-block>p{font-size:15px;color:var(--text);line-height:1.8}
+.plain-list{list-style:none;padding:0}
+.plain-list li{font-size:14px;color:var(--text);line-height:1.65;padding:5px 0 5px 18px;position:relative}
+.plain-list li::before{content:'–';position:absolute;left:0;color:var(--teal-400);font-weight:600}
+.divider{height:1px;background:var(--border);margin:1.5rem 0}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+@media(max-width:580px){.two-col{grid-template-columns:1fr}}
+.risk-list{display:flex;flex-direction:column;gap:8px}
+.risk-item{display:flex;align-items:flex-start;gap:9px}
+.risk-pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.risk-pill.common{background:var(--amber-50);color:var(--amber-600)}
+.risk-pill.serious{background:var(--red-50);color:var(--red-600)}
+.risk-pill.unknown{background:var(--gray-100);color:var(--gray-600)}
+.risk-text{font-size:14px;color:var(--text);line-height:1.65}
+.question-item{padding:11px 14px 11px 16px;background:var(--blue-50);border-left:3px solid var(--blue-400);border-radius:0 var(--radius) var(--radius) 0;font-size:14px;color:var(--blue-600);line-height:1.6;margin-bottom:8px}
+.options-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+.option-card{border:1px solid var(--border-md);border-radius:var(--radius-lg);padding:1.25rem;background:var(--white)}
+.option-card.primary{background:var(--teal-50);border-color:var(--teal-100)}
+.option-num{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--teal-400);margin-bottom:5px}
+.option-name{font-size:16px;font-weight:600;color:var(--text);margin-bottom:7px;line-height:1.3}
+.option-desc{font-size:13px;color:var(--text-soft);margin-bottom:14px;line-height:1.6}
+.pc-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:7px}
+.pc-label.up{color:var(--teal-600)}.pc-label.dn{color:var(--red-600)}
+.pc-list{list-style:none;padding:0;margin-bottom:13px}
+.pc-list li{font-size:13px;color:var(--text);line-height:1.6;padding:3px 0 3px 16px;position:relative}
+.pc-list.up li::before{content:'+';position:absolute;left:0;color:var(--teal-400);font-weight:700}
+.pc-list.dn li::before{content:'–';position:absolute;left:0;color:var(--red-400);font-weight:700}
+.notice{display:flex;gap:10px;align-items:flex-start;background:var(--amber-50);border:1px solid var(--amber-100);border-radius:var(--radius);padding:12px 14px;font-size:13px;color:var(--amber-600);line-height:1.6;margin-top:1rem}
+.score-intro{font-size:14px;color:var(--text-soft);line-height:1.7;margin-bottom:1.25rem}
+.table-wrap{overflow-x:auto;border-radius:var(--radius-lg);border:1px solid var(--border)}
+.score-table{width:100%;border-collapse:collapse;min-width:480px}
+.score-table th{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-soft);padding:10px 12px;text-align:left;background:var(--gray-50);border-bottom:1px solid var(--border)}
+.score-table th:not(:first-child){text-align:center}
+.score-table td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.score-table tr:last-child td{border-bottom:none}
+.score-table tr:hover td{background:var(--gray-50)}
+.crit-name{font-size:14px;font-weight:500;color:var(--text)}
+.crit-desc{font-size:12px;color:var(--text-soft);margin-top:2px;line-height:1.4}
+.score-cell{text-align:center}
+.score-inp,.weight-inp{width:56px;padding:7px 6px;text-align:center;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;-moz-appearance:textfield}
+.score-inp::-webkit-inner-spin-button,.score-inp::-webkit-outer-spin-button,.weight-inp::-webkit-inner-spin-button,.weight-inp::-webkit-outer-spin-button{-webkit-appearance:none}
+.score-inp{border:1px solid var(--border-md);color:var(--text);background:var(--white)}
+.score-inp:focus{outline:none;border-color:var(--teal-400);box-shadow:0 0 0 2px rgba(29,158,117,0.12)}
+.weight-inp{border:1px solid var(--teal-100);color:var(--teal-600);background:var(--teal-50)}
+.weight-inp:focus{outline:none;border-color:var(--teal-400);box-shadow:0 0 0 2px rgba(29,158,117,0.12)}
+.totals-row{display:flex;gap:12px;margin-top:1.25rem;flex-wrap:wrap}
+.total-card{flex:1;min-width:140px;background:var(--gray-50);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.25rem;text-align:center;transition:all 0.25s}
+.total-card.winner{background:var(--teal-50);border-color:var(--teal-100)}
+.total-name{font-size:12px;color:var(--text-soft);margin-bottom:4px;font-weight:500}
+.total-num{font-family:'DM Serif Display',serif;font-size:32px;color:var(--text);line-height:1;margin-bottom:4px}
+.total-card.winner .total-num{color:var(--teal-600)}
+.winner-tag{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--teal-400)}
+.score-note{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text-soft);margin-top:1.25rem;line-height:1.6;padding:10px 12px;background:var(--gray-50);border-radius:var(--radius);border:1px solid var(--border)}
+.error-msg{background:var(--red-50);border:1px solid var(--red-100);border-radius:var(--radius);padding:12px 14px;font-size:13px;color:var(--red-600);line-height:1.6;margin-top:14px;word-break:break-word}
+.privacy-row{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-soft);flex-wrap:wrap}
+.actions-row{display:flex;align-items:center;gap:10px;margin-top:1.25rem;flex-wrap:wrap}
+footer{background:var(--white);border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;margin-top:3rem}
+.footer-inner{max-width:900px;margin:0 auto}
+.footer-logo{font-size:13px;font-weight:600;color:var(--text-mid);margin-bottom:6px}
+.footer-text{font-size:12px;color:var(--text-soft);line-height:1.7;max-width:560px;margin:0 auto}
+.footer-links{display:flex;justify-content:center;gap:16px;margin-top:12px}
+.footer-links a{font-size:12px;color:var(--text-soft);text-decoration:none}
+.footer-links a:hover{color:var(--teal-600)}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <div class="logo-mark"><svg viewBox="0 0 18 18"><path d="M9 1.5L11.8 7.2H17.5L12.9 10.8L14.7 16.5L9 13L3.3 16.5L5.1 10.8L0.5 7.2H6.2L9 1.5Z"/></svg></div>
+      <div><span class="logo-name">Decision Brief</span><span class="logo-tagline">Academy of Life Planning</span></div>
+    </a>
+    <span class="header-tag">Prototype · Agency-first</span>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="hero-eyebrow">Plain English · Agency-first · Multi-factor analysis</div>
+    <h1>From information overload<br>to a decision <em>you understand</em></h1>
+    <p>Paste your patient information sheet — however long. We turn it into a plain-English brief with a structured options comparison and a scoring tool so you can weigh what matters most to you.</p>
+  </div>
+
+  <div class="steps-wrap">
+    <div class="step-item active" id="sdot1"><div class="step-circle" id="scirc1">1</div><div class="step-label">Paste document</div></div>
+    <div class="step-connector" id="sline1"></div>
+    <div class="step-item" id="sdot2"><div class="step-circle" id="scirc2">2</div><div class="step-label">Your brief</div></div>
+    <div class="step-connector" id="sline2"></div>
+    <div class="step-item" id="sdot3"><div class="step-circle" id="scirc3">3</div><div class="step-label">Score &amp; decide</div></div>
+  </div>
+
+  <div id="view1">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left"><div class="card-title">Paste your patient information sheet</div><div class="card-subtitle">Any length — the longer the better. We do the reading for you.</div></div>
+        <button class="btn btn-ghost btn-sm" id="btn-demo">Load example</button>
+      </div>
+      <div class="card-body">
+        <textarea id="pis-input" placeholder="Paste the full patient information sheet here…"></textarea>
+        <div id="err-msg" class="error-msg hidden"></div>
+        <div class="actions-row">
+          <button class="btn btn-primary" id="btn-go" disabled>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Generate my decision brief
+          </button>
+          <div class="privacy-row">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Text is used only to generate your brief. Nothing is stored.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="view2" class="hidden">
+    <div class="card">
+      <div id="loading-view" class="loading-view hidden">
+        <div class="spinner-wrap"><div class="spinner-track"></div><div class="spinner-fill"></div></div>
+        <div class="loading-label">Reading your information sheet…</div>
+        <div class="loading-sub">Extracting what matters for your decision. This takes 10–20 seconds.</div>
+      </div>
+      <div id="results-view" class="hidden">
+        <div class="card-head">
+          <div class="card-head-left"><div class="card-title" id="r-title"></div><div class="card-subtitle" id="r-subtitle"></div></div>
+          <button class="btn btn-ghost btn-sm" id="btn-restart">↩ Start over</button>
+        </div>
+        <div class="tab-nav">
+          <button class="tab-btn active" data-tab="brief">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Decision brief
+          </button>
+          <button class="tab-btn" data-tab="options">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            Your options
+          </button>
+          <button class="tab-btn" data-tab="score">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            Score &amp; weigh
+          </button>
+        </div>
+        <div class="tab-pane" id="tab-brief">
+          <div class="section-block"><div class="section-eyebrow">The decision in plain English</div><p id="r-summary"></p></div>
+          <div class="divider"></div>
+          <div class="section-block"><div class="section-eyebrow">What participation involves</div><ul class="plain-list" id="r-involves"></ul></div>
+          <div class="divider"></div>
+          <div class="two-col">
+            <div class="section-block"><div class="section-eyebrow">Potential benefits</div><ul class="plain-list" id="r-benefits"></ul></div>
+            <div class="section-block"><div class="section-eyebrow">Potential risks</div><div class="risk-list" id="r-risks"></div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="section-block"><div class="section-eyebrow">Questions worth asking your doctor</div><div id="r-questions"></div></div>
+        </div>
+        <div class="tab-pane hidden" id="tab-options">
+          <div class="options-grid" id="r-options-grid"></div>
+          <div class="notice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            These options come directly from your information sheet. Your doctor may know of additional options — always worth asking.
+          </div>
+        </div>
+        <div class="tab-pane hidden" id="tab-score">
+          <p class="score-intro">Score each option from 1 (poor) to 10 (excellent) for each criterion. Set your own weights (1–10) to reflect what matters most to you. Totals update live.</p>
+          <div class="table-wrap"><table class="score-table"><thead id="score-thead"></thead><tbody id="score-tbody"></tbody></table></div>
+          <div class="totals-row" id="r-totals"></div>
+          <div class="score-note">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            The highest score reflects your preferences as currently entered. It is a thinking tool — not a recommendation. Discuss with your clinical team before deciding.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Academy of Life Planning · Total Wealth Planning™</div>
+    <div class="footer-text">This tool supports informed decision-making and does not provide medical advice. Always discuss any decision with your clinical team before proceeding. Prototype for research and testing purposes only.</div>
+    <div class="footer-links"><a href="https://aolp.co.uk" target="_blank" rel="noopener">aolp.co.uk</a><a href="#">About this tool</a><a href="#">Privacy</a></div>
+  </div>
+</footer>
+
+<script>
+const DEMO = `Clinical Trial: HORIZON-3
+Phase III Randomised Controlled Trial — Investigational Drug X versus Standard of Care for Moderate-to-Severe Condition Y
+
+INVITATION AND PURPOSE
+You are being invited to take part in a research study called HORIZON-3. This is because you have been diagnosed with Condition Y and meet the eligibility criteria for the trial. Before you decide whether to participate, it is important that you understand why the research is being done and what it involves.
+
+WHAT IS THE PURPOSE OF THE STUDY?
+The purpose of this study is to find out whether Drug X is more effective than the current standard treatment for Condition Y. Drug X works by targeting a specific protein involved in the disease process. It has been tested in earlier trials involving 340 patients, where it showed a 40% reduction in disease progression at 12 months compared to standard care.
+
+WHAT DOES PARTICIPATION INVOLVE?
+If you agree to participate, you will be randomly allocated to receive either Drug X or the current standard treatment. Neither you nor your doctor will know which treatment you receive. Participation lasts 12 months. You will attend a clinic once per month (12 visits). You will have blood tests every two weeks. You will have one MRI scan at the start and one at the end. Each visit takes approximately 2.5 to 3 hours.
+
+WHAT ARE THE POSSIBLE BENEFITS?
+Drug X may slow or reduce the progression of Condition Y more effectively than standard care. Phase II data showed a 40% reduction in disease progression. If effective, it could improve your quality of life and reduce long-term disability. You may access this treatment before it is widely available.
+
+WHAT ARE THE POSSIBLE RISKS AND SIDE EFFECTS?
+Nausea occurred in 35% of participants. Fatigue was reported by 28% of participants. Headache was reported in 20% of participants. Elevated liver enzymes were seen in 2% of participants — a potentially serious effect. Long-term effects of Drug X are not yet fully known.
+
+WHAT ARE YOUR ALTERNATIVES?
+You do not have to take part. Your care will not be affected. Alternatives include: continuing current standard treatment outside the trial; watchful waiting with regular monitoring; asking your consultant about other available trials.
+
+WITHDRAWAL
+You may withdraw at any time without giving a reason. This will not affect your standard care.
+
+TIME AND TRAVEL
+Approximately 3 hours per month over 12 months. Travel expenses reimbursed. Parking available.`;
+
+var brief = null;
+var scores = {};
+var weights = {};
+
+var pisInput = document.getElementById('pis-input');
+var btnGo = document.getElementById('btn-go');
+var btnDemo = document.getElementById('btn-demo');
+var btnRestart = document.getElementById('btn-restart');
+var errMsg = document.getElementById('err-msg');
+
+pisInput.addEventListener('input', function() { btnGo.disabled = !pisInput.value.trim(); });
+btnDemo.addEventListener('click', function() { pisInput.value = DEMO; btnGo.disabled = false; });
+btnGo.addEventListener('click', runAnalysis);
+btnRestart.addEventListener('click', restart);
+
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    ['brief','options','score'].forEach(function(t) {
+      document.getElementById('tab-'+t).classList.toggle('hidden', btn.dataset.tab !== t);
+    });
+  });
+});
+
+function setStep(n) {
+  [1,2,3].forEach(function(i) {
+    var dot = document.getElementById('sdot'+i);
+    var circ = document.getElementById('scirc'+i);
+    dot.classList.remove('active','done');
+    if (i < n) {
+      dot.classList.add('done');
+      circ.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    } else if (i === n) {
+      dot.classList.add('active');
+      circ.textContent = i;
+    } else {
+      circ.textContent = i;
+    }
+  });
+  if (n > 1) document.getElementById('sline1').classList.add('done');
+  else document.getElementById('sline1').classList.remove('done');
+  if (n > 2) document.getElementById('sline2').classList.add('done');
+  else document.getElementById('sline2').classList.remove('done');
+}
+
+async function runAnalysis() {
+  var text = pisInput.value.trim();
+  if (!text) return;
+
+  errMsg.classList.add('hidden');
+  document.getElementById('view1').classList.add('hidden');
+  document.getElementById('view2').classList.remove('hidden');
+  document.getElementById('loading-view').classList.remove('hidden');
+  document.getElementById('results-view').classList.add('hidden');
+  setStep(2);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  var prompt = `You are a plain-English decision support assistant. A patient has received a long patient information sheet for a clinical trial or medical decision. Extract and structure the key information into a decision brief that genuinely helps them decide.
+
+Rules:
+- Use plain English. No unexplained jargon.
+- Be honest about uncertainty, risks, and unknowns.
+- Return ONLY valid JSON. No markdown fences, no preamble, no commentary.
+
+Return this exact JSON structure:
+{
+  "title": "Trial name in plain English, max 8 words",
+  "subtitle": "One sentence: what type of decision and what condition",
+  "decision_summary": "3-4 plain English sentences explaining what decision the person faces and what the real uncertainty is",
+  "what_it_involves": ["item 1", "item 2", "item 3", "item 4"],
+  "benefits": ["benefit 1", "benefit 2", "benefit 3"],
+  "risks": [
+    {"level": "common", "text": "risk description"},
+    {"level": "serious", "text": "risk description"},
+    {"level": "unknown", "text": "what is not yet known"}
+  ],
+  "questions_to_ask": ["Question 1?", "Question 2?", "Question 3?", "Question 4?"],
+  "options": [
+    {
+      "name": "Option name",
+      "description": "One sentence describing this path",
+      "upsides": ["upside 1", "upside 2"],
+      "downsides": ["downside 1", "downside 2"]
+    },
+    {
+      "name": "Option name",
+      "description": "One sentence",
+      "upsides": ["upside 1"],
+      "downsides": ["downside 1"]
+    }
+  ],
+  "criteria": [
+    {"label": "Effect on my condition", "description": "How well might this treat or slow my illness?"},
+    {"label": "Side effect risk", "description": "How likely and serious are unwanted effects?"},
+    {"label": "Time and disruption", "description": "How much time and disruption is involved?"},
+    {"label": "Certainty of the evidence", "description": "How well-established is what we know?"},
+    {"label": "Quality of daily life", "description": "How will this affect everyday living during treatment?"}
+  ]
+}
+
+Patient information sheet:
+${text.slice(0, 12000)}`;
+
+  var raw = '';
+  try {
+    var res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 8000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if (!res.ok) {
+      var errText = await res.text();
+      throw new Error('API returned ' + res.status + ': ' + errText.slice(0, 200));
+    }
+
+    var data = await res.json();
+    if (data.error) throw new Error('Anthropic error: ' + JSON.stringify(data.error));
+
+    raw = (data.content || []).map(function(c) { return c.text || ''; }).join('');
+    raw = raw.replace(/```json|```/g, '').trim();
+
+    var start = raw.indexOf('{');
+    var end = raw.lastIndexOf('}');
+    if (start === -1 || end === -1) throw new Error('No JSON found in response');
+    raw = raw.slice(start, end + 1);
+
+    brief = JSON.parse(raw);
+
+    if (!brief || !brief.title) throw new Error('Response missing expected fields');
+
+    scores = {};
+    weights = {};
+    (brief.criteria || []).forEach(function(_, ci) {
+      weights[ci] = 5;
+      scores[ci] = {};
+      (brief.options || []).forEach(function(_, oi) {
+        scores[ci][oi] = 5;
+      });
+    });
+
+    populateResults();
+    document.getElementById('loading-view').classList.add('hidden');
+    document.getElementById('results-view').classList.remove('hidden');
+    setStep(3);
+
+  } catch(e) {
+    document.getElementById('loading-view').classList.add('hidden');
+    document.getElementById('view1').classList.remove('hidden');
+    document.getElementById('view2').classList.add('hidden');
+    setStep(1);
+    errMsg.textContent = 'Something went wrong: ' + e.message;
+    errMsg.classList.remove('hidden');
+  }
+}
+
+function populateResults() {
+  document.getElementById('r-title').textContent = brief.title || 'Your decision brief';
+  document.getElementById('r-subtitle').textContent = brief.subtitle || '';
+  document.getElementById('r-summary').textContent = brief.decision_summary || '';
+
+  document.getElementById('r-involves').innerHTML =
+    (brief.what_it_involves || []).map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('');
+
+  document.getElementById('r-benefits').innerHTML =
+    (brief.benefits || []).map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('');
+
+  document.getElementById('r-risks').innerHTML =
+    (brief.risks || []).map(function(r) {
+      return '<div class="risk-item"><span class="risk-pill ' + (r.level||'common') + '">' + esc(r.level||'risk') + '</span><span class="risk-text">' + esc(r.text) + '</span></div>';
+    }).join('');
+
+  document.getElementById('r-questions').innerHTML =
+    (brief.questions_to_ask || []).map(function(q) { return '<div class="question-item">' + esc(q) + '</div>'; }).join('');
+
+  document.getElementById('r-options-grid').innerHTML =
+    (brief.options || []).map(function(opt, i) {
+      return '<div class="option-card ' + (i===0?'primary':'') + '">' +
+        '<div class="option-num">Option ' + (i+1) + '</div>' +
+        '<div class="option-name">' + esc(opt.name) + '</div>' +
+        '<div class="option-desc">' + esc(opt.description) + '</div>' +
+        '<div class="pc-label up">Upsides</div>' +
+        '<ul class="pc-list up">' + (opt.upsides||[]).map(function(u) { return '<li>' + esc(u) + '</li>'; }).join('') + '</ul>' +
+        '<div class="pc-label dn">Downsides</div>' +
+        '<ul class="pc-list dn">' + (opt.downsides||[]).map(function(d) { return '<li>' + esc(d) + '</li>'; }).join('') + '</ul>' +
+        '</div>';
+    }).join('');
+
+  buildScoreTable();
+}
+
+function buildScoreTable() {
+  var opts = brief.options || [];
+  var crit = brief.criteria || [];
+
+  document.getElementById('score-thead').innerHTML = '<tr>' +
+    '<th style="width:36%">What matters to you</th>' +
+    opts.map(function(o) { return '<th>' + esc(o.name.length>15 ? o.name.slice(0,15)+'…' : o.name) + '</th>'; }).join('') +
+    '<th style="color:var(--teal-600)">Weight<br><span style="font-weight:400;font-size:11px;">(1-10)</span></th>' +
+    '</tr>';
+
+  document.getElementById('score-tbody').innerHTML = crit.map(function(cr, ci) {
+    return '<tr>' +
+      '<td><div class="crit-name">' + esc(cr.label) + '</div><div class="crit-desc">' + esc(cr.description||'') + '</div></td>' +
+      opts.map(function(_, oi) {
+        return '<td class="score-cell"><input class="score-inp" type="number" min="1" max="10" step="1" value="' + ((scores[ci]||{})[oi]||5) + '" data-ci="' + ci + '" data-oi="' + oi + '" data-kind="score"></td>';
+      }).join('') +
+      '<td class="score-cell"><input class="weight-inp" type="number" min="1" max="10" step="1" value="' + (weights[ci]||5) + '" data-ci="' + ci + '" data-kind="weight"></td>' +
+      '</tr>';
+  }).join('');
+
+  document.querySelectorAll('.score-inp, .weight-inp').forEach(function(inp) {
+    inp.addEventListener('input', function(e) {
+      var ci = parseInt(e.target.dataset.ci);
+      var kind = e.target.dataset.kind;
+      var val = Math.min(10, Math.max(1, parseInt(e.target.value)||1));
+      if (kind === 'weight') {
+        weights[ci] = val;
+      } else {
+        var oi = parseInt(e.target.dataset.oi);
+        if (!scores[ci]) scores[ci] = {};
+        scores[ci][oi] = val;
+      }
+      updateTotals();
+    });
+  });
+
+  updateTotals();
+}
+
+function updateTotals() {
+  var opts = brief.options || [];
+  var crit = brief.criteria || [];
+  var totals = opts.map(function(_, oi) {
+    return crit.reduce(function(s, _, ci) {
+      return s + (weights[ci]||5) * ((scores[ci]||{})[oi]||5);
+    }, 0);
+  });
+  var max = Math.max.apply(null, totals);
+  document.getElementById('r-totals').innerHTML = opts.map(function(opt, oi) {
+    return '<div class="total-card ' + (totals[oi]===max?'winner':'') + '">' +
+      '<div class="total-name">' + esc(opt.name.length>18 ? opt.name.slice(0,18)+'…' : opt.name) + '</div>' +
+      '<div class="total-num">' + Math.round(totals[oi]) + '</div>' +
+      (totals[oi]===max ? '<div class="winner-tag">Scores highest</div>' : '') +
+      '</div>';
+  }).join('');
+}
+
+function restart() {
+  brief = null; scores = {}; weights = {};
+  pisInput.value = ''; btnGo.disabled = true;
+  errMsg.classList.add('hidden');
+  document.getElementById('view1').classList.remove('hidden');
+  document.getElementById('view2').classList.add('hidden');
+  document.getElementById('loading-view').classList.add('hidden');
+  document.getElementById('results-view').classList.add('hidden');
+  document.querySelectorAll('.tab-btn').forEach(function(b, i) { b.classList.toggle('active', i===0); });
+  ['brief','options','score'].forEach(function(t, i) { document.getElementById('tab-'+t).classList.toggle('hidden', i!==0); });
+  setStep(1);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function esc(str) {
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
