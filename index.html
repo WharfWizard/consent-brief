@@ -762,7 +762,16 @@ ${text.slice(0, 12000)}`;
     const data = await res.json();
     let raw = (data.content || []).map(c => c.text || '').join('');
     raw = raw.replace(/```json|```/g, '').trim();
-    brief = JSON.parse(raw);
+// Remove any control characters that break JSON parsing
+raw = raw.replace(/[\u0000-\u001F\u007F]/g, ' ');
+try {
+  briefData = JSON.parse(raw);
+} catch(e2) {
+  // Try extracting just the JSON object
+  const match = raw.match(/\{[\s\S]*\}/);
+  if (match) briefData = JSON.parse(match[0]);
+  else throw e2;
+}
 
     scores = {}; weights = {};
     (brief.criteria || []).forEach((_, ci) => {
