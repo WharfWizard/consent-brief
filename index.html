@@ -748,49 +748,54 @@ JSON schema:
 Patient information sheet:
 ${text.slice(0, 12000)}`;
 
-  try {
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 4000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    if (!res.ok) {
-  const errText = await res.text();
-  throw new Error('API returned ' + res.status + ': ' + errText.slice(0, 200));
-}
-    const data = await res.json();
-    let raw = (data.content || []).map(c => c.text || '').join('');
-    raw = raw.replace(/```json|```/g, '').trim();
-// Remove any control characters that break JSON parsing
-raw = raw.replace(/[\u0000-\u001F\u007F]/g, ' ');
+let raw = '';
 try {
-  briefData = JSON.parse(raw);
-} catch(e2) {
-  // Try extracting just the JSON object
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 4000,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error('API returned ' + res.status + ': ' + errText.slice(0, 200));
+  }
+
+  const data = await res.json();
+  if (data.error) throw new Error('Anthropic error: ' + JSON.stringify(data.error));
+
+  raw = (data.content || []).map(c => c.text || '').join('');
+  raw = raw.replace(/```json|```/g, '').trim();
+  raw = raw.replace(/[\u0000-\u001F\u007F]/g, ' ');
+
   const match = raw.match(/\{[\s\S]*\}/);
-  if (match) briefData = JSON.parse(match[0]);
-  else throw e2;
+  briefData = match ? JSON.parse(match[0]) : JSON.parse(raw);
+
+  if (!briefData || !briefData.title) throw new Error('Unexpected response: ' + raw.slice(0, 200));
+
+  scores = {}; weights = {};
+  (briefData.criteria || []).forEach((_, ci) => {
+    weights[ci] = 5; scores[ci] = {};
+    (briefData.options || []).forEach((_, oi) => { scores[ci][oi] = 5; });
+  });
+
+  populateResults();
+  document.getElementById('loading-view').classList.add('hidden');
+  document.getElementById('results-view').classList.remove('hidden');
+  setStep(3);
+
+} catch(e) {
+  document.getElementById('loading-view').classList.add('hidden');
+  document.getElementById('view1').classList.remove('hidden');
+  document.getElementById('view2').classList.add('hidden');
+  setStep(1);
+  errMsg.textContent = 'Error: ' + e.message + ' | raw: ' + (raw ? raw.slice(0, 300) : 'no raw');
+  errMsg.classList.remove('hidden');
 }
-
-    scores = {}; weights = {};
-    (brief.criteria || []).forEach((_, ci) => {
-      weights[ci] = 5; scores[ci] = {};
-      (brief.options || []).forEach((_, oi) => { scores[ci][oi] = 5; });
-    });
-
-    populateResults();
-    document.getElementById('loading-view').classList.add('hidden');
-    document.getElementById('results-view').classList.remove('hidden');
-    setStep(3);
-  } catch(e) {
-    document.getElementById('loading-view').classList.add('hidden');
-    document.getElementById('view1').classList.remove('hidden');
-    document.getElementById('view2').classList.add('hidden');
-    setStep(1);
    errMsg.textContent = 'Something went wrong: ' + e.message + ' | raw: ' + (typeof raw !== 'undefined' ? raw.slice(0, 200) : 'no raw');
     errMsg.classList.remove('hidden');
   }
