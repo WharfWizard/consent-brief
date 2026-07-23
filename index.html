@@ -802,10 +802,6 @@ try {
   errMsg.textContent = 'Error: ' + e.message + ' | raw: ' + (raw ? raw.slice(-200) : 'no raw');
   errMsg.classList.remove('hidden');
 }
-   errMsg.textContent = 'Something went wrong: ' + e.message + ' | raw: ' + (typeof raw !== 'undefined' ? raw.slice(0, 200) : 'no raw');
-    errMsg.classList.remove('hidden');
-  }
-
 
 function populateResults() {
   document.getElementById('r-title').textContent = brief.title || 'Your decision brief';
